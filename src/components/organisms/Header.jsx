@@ -131,7 +131,6 @@ const Header = () => {
             </Button>
           </div>
         </div>
-
 {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -144,7 +143,8 @@ const Header = () => {
                 {item.name}
               </Link>
             ))}
-</motion.header>
+          </div>
+        </motion.header>
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (

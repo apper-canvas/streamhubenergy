@@ -99,8 +99,8 @@ const MyList = () => {
           return timestampB - timestampA
       }
     })
-
-    setFilteredContent(filtered)
+setFilteredContent(filtered)
+  }
 
   const handlePlay = (content) => {
     setSelectedContent(content)
