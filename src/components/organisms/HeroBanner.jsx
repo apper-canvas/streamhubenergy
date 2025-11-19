@@ -17,11 +17,16 @@ useEffect(() => {
     }
   }, [content])
 
-  // Early return after all hooks are called
+// Early return after all hooks are called
   if (!content) return null
-
-const currentContent = Array.isArray(content) ? content[currentIndex] : content
-
+  
+  // Handle empty arrays and invalid indices
+  if (Array.isArray(content) && content.length === 0) return null
+  
+  const currentContent = Array.isArray(content) ? content[currentIndex] : content
+  
+  // Additional safety check for undefined content
+  if (!currentContent) return null
   const handlePlay = () => {
     onPlay?.(currentContent)
   }
@@ -41,7 +46,7 @@ const currentContent = Array.isArray(content) ? content[currentIndex] : content
       <div className="absolute inset-0">
         <img
 src={currentContent?.backdrop_c?.url || currentContent?.backdrop_c || '/placeholder-image.jpg'}
-          alt={currentContent.title_c}
+          alt={currentContent?.title_c || 'Content image'}
           className={`w-full h-full object-cover transition-all duration-1000 ${
             imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-110'
           }`}
@@ -66,7 +71,7 @@ src={currentContent?.backdrop_c?.url || currentContent?.backdrop_c || '/placehol
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            key={currentContent.Id}
+key={currentContent?.Id || 'hero-content'}
           >
             {/* Badges */}
             <div className="flex items-center space-x-3">
