@@ -40,8 +40,8 @@ const currentContent = Array.isArray(content) ? content[currentIndex] : content
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
-          src={currentContent.backdrop}
-          alt={currentContent.title}
+src={currentContent.backdrop_c?.url || currentContent.backdrop_c}
+          alt={currentContent.title_c}
           className={`w-full h-full object-cover transition-all duration-1000 ${
             imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-110'
           }`}
@@ -70,40 +70,39 @@ const currentContent = Array.isArray(content) ? content[currentIndex] : content
           >
             {/* Badges */}
             <div className="flex items-center space-x-3">
-              <Badge variant="rating">★ {currentContent.rating}</Badge>
-              <Badge variant="secondary">{currentContent.maturityRating}</Badge>
-              <Badge variant="outline">{currentContent.releaseYear}</Badge>
+<Badge variant="rating">★ {currentContent.rating_c}</Badge>
+              <Badge variant="secondary">{currentContent.maturity_rating_c}</Badge>
+              <Badge variant="outline">{currentContent.release_year_c}</Badge>
             </div>
 
             {/* Title */}
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bebas text-netflix-white leading-none tracking-wide">
-              {currentContent.title}
+{currentContent.title_c}
             </h1>
 
             {/* Metadata */}
             <div className="flex items-center space-x-4 text-lg text-gray-300 font-inter">
-              <span>{Math.floor(currentContent.duration / 60)}h {currentContent.duration % 60}m</span>
+<span>{Math.floor(currentContent.duration_c / 60)}h {currentContent.duration_c % 60}m</span>
               <span>•</span>
-              <span className="capitalize">{currentContent.type}</span>
-              <span>•</span>
-              <div className="flex items-center space-x-2">
-                {currentContent.genre.slice(0, 3).map((genre) => (
+              <span className="capitalize">{currentContent.type_c}</span>
+<span>•</span>
+              <span>
+                {(currentContent.genre_c?.split(',') || []).slice(0, 3).map((genre) => (
                   <span key={genre} className="text-sm bg-netflix-white/20 px-2 py-1 rounded">
                     {genre}
                   </span>
                 ))}
-              </div>
+              </span>
             </div>
-
             {/* Synopsis */}
             <p className="text-lg md:text-xl text-gray-200 font-inter leading-relaxed max-w-2xl line-clamp-3">
-              {currentContent.synopsis}
+{currentContent.synopsis_c}
             </p>
 
             {/* Cast */}
             <div className="text-gray-300 font-inter">
               <span className="text-netflix-white font-semibold">Starring: </span>
-              {currentContent.cast.slice(0, 3).join(", ")}
+{(currentContent.cast_c?.split(',') || []).slice(0, 3).join(", ")}
             </div>
 
             {/* Action Buttons */}

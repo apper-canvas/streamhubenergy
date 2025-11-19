@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { toast } from 'react-toastify'
-import contentService from '@/services/api/contentService'
-import myListService from '@/services/api/myListService'
-import watchProgressService from '@/services/api/watchProgressService'
-import ApperIcon from '@/components/ApperIcon'
-import Button from '@/components/atoms/Button'
-import VideoCard from '@/components/molecules/VideoCard'
-import VideoPlayer from '@/components/organisms/VideoPlayer'
-import ContentModal from '@/components/organisms/ContentModal'
-import Loading from '@/components/ui/Loading'
-import ErrorView from '@/components/ui/ErrorView'
-import Empty from '@/components/ui/Empty'
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { toast } from "react-toastify";
+import myListService from "@/services/api/myListService";
+import watchProgressService from "@/services/api/watchProgressService";
+import contentService from "@/services/api/contentService";
+import ApperIcon from "@/components/ApperIcon";
+import VideoCard from "@/components/molecules/VideoCard";
+import Loading from "@/components/ui/Loading";
+import Empty from "@/components/ui/Empty";
+import ErrorView from "@/components/ui/ErrorView";
+import VideoPlayer from "@/components/organisms/VideoPlayer";
+import ContentModal from "@/components/organisms/ContentModal";
+import Button from "@/components/atoms/Button";
 
 const MyList = () => {
   // Content state
@@ -83,7 +83,7 @@ const MyList = () => {
       filtered = filtered.filter(content => content.type === filterType)
     }
 
-    // Sort content
+// Sort content
     filtered.sort((a, b) => {
       switch (sortBy) {
         case "title":
@@ -101,7 +101,6 @@ const MyList = () => {
     })
 
     setFilteredContent(filtered)
-  }
 
   const handlePlay = (content) => {
     setSelectedContent(content)
@@ -117,7 +116,7 @@ const MyList = () => {
     try {
       await myListService.removeFromList(contentId)
       setMyListIds(prev => prev.filter(id => id !== contentId.toString()))
-      setMyListContent(prev => prev.filter(content => content.Id !== contentId))
+setMyListContent(prev => prev.filter(content => content.Id !== contentId))
       toast.success("Removed from My List")
     } catch (err) {
       toast.error("Failed to remove from My List")
@@ -231,7 +230,7 @@ const MyList = () => {
           </motion.div>
         )}
 
-        {/* Content Grid */}
+{/* Content Grid */}
         {!isEmpty && (
           <motion.section
             className="space-y-6"
@@ -242,7 +241,7 @@ const MyList = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filteredContent.map((content, index) => (
                 <motion.div
-                  key={content.Id}
+key={content.Id}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
@@ -261,7 +260,7 @@ const MyList = () => {
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => handleRemoveFromList(content.Id)}
+onClick={() => handleRemoveFromList(content.Id)}
                     className="absolute top-2 right-2 w-8 h-8 bg-black/60 hover:bg-netflix-red border border-netflix-white/20 opacity-0 group-hover:opacity-100 transition-all duration-200"
                   >
                     <ApperIcon name="X" className="h-4 w-4 text-netflix-white" />
@@ -314,7 +313,7 @@ const MyList = () => {
           content={selectedContent}
           onClose={() => setIsPlayerOpen(false)}
           onProgressUpdate={handleProgressUpdate}
-          initialProgress={watchProgress[selectedContent.Id] || 0}
+initialProgress={watchProgress[selectedContent.Id] || 0}
         />
       )}
     </div>

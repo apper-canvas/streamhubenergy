@@ -39,14 +39,14 @@ const VideoPlayer = ({ content, onClose, onProgressUpdate, initialProgress = 0 }
     const handleTimeUpdate = () => {
       setCurrentTime(video.currentTime)
       const progress = video.currentTime / video.duration
-      onProgressUpdate?.(content.Id, progress)
+onProgressUpdate?.(content.Id, progress)
     }
 
     const handlePlay = () => setIsPlaying(true)
     const handlePause = () => setIsPlaying(false)
     const handleEnded = () => {
       setIsPlaying(false)
-      onProgressUpdate?.(content.Id, 1)
+onProgressUpdate?.(content.Id, 1)
     }
 
     video.addEventListener('loadeddata', handleLoadedData)
@@ -136,7 +136,7 @@ const VideoPlayer = ({ content, onClose, onProgressUpdate, initialProgress = 0 }
       {/* Video Element */}
       <video
         ref={videoRef}
-        src={content.videoUrl}
+src={content.videoUrl_c}
         className="w-full h-full object-contain"
         onClick={togglePlayPause}
         onLoadStart={() => setIsLoading(true)}
@@ -167,12 +167,12 @@ const VideoPlayer = ({ content, onClose, onProgressUpdate, initialProgress = 0 }
               <div className="flex items-center justify-between">
                 <div className="space-y-2">
                   <h1 className="text-2xl font-bebas text-netflix-white tracking-wide">
-                    {content.title}
+{content.title_c}
                   </h1>
                   <div className="flex items-center space-x-4 text-sm text-gray-300 font-inter">
-                    <span>{content.releaseYear}</span>
+<span>{content.release_year_c}</span>
                     <span>•</span>
-                    <span>{content.maturityRating}</span>
+                    <span>{content.maturity_rating_c}</span>
                     <span>•</span>
                     <span>{formatTime(duration)}</span>
                   </div>

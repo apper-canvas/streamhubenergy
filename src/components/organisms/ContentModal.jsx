@@ -79,8 +79,8 @@ const ContentModal = ({ content, isOpen, onClose, onPlay, onAddToList, inMyList 
               {/* Hero Image */}
               <div className="relative aspect-video overflow-hidden">
                 <img
-                  src={content.backdrop}
-                  alt={content.title}
+src={content.backdrop_c?.url || content.backdrop_c}
+                  alt={content.title_c}
                   className={`w-full h-full object-cover transition-all duration-500 ${
                     imageLoaded ? 'opacity-100' : 'opacity-0'
                   }`}
@@ -99,13 +99,13 @@ const ContentModal = ({ content, isOpen, onClose, onPlay, onAddToList, inMyList 
                 <div className="absolute bottom-0 left-0 right-0 p-8">
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3">
-                      <Badge variant="rating">★ {content.rating}</Badge>
-                      <Badge variant="secondary">{content.maturityRating}</Badge>
-                      <Badge variant="outline">{content.releaseYear}</Badge>
+<Badge variant="rating">★ {content.rating_c}</Badge>
+                      <Badge variant="secondary">{content.maturity_rating_c}</Badge>
+                      <Badge variant="outline">{content.release_year_c}</Badge>
                     </div>
 
                     <h1 className="text-4xl md:text-5xl font-bebas text-netflix-white leading-none tracking-wide">
-                      {content.title}
+{content.title_c}
                     </h1>
 
                     <div className="flex items-center space-x-6">
@@ -142,18 +142,18 @@ const ContentModal = ({ content, isOpen, onClose, onPlay, onAddToList, inMyList 
                   <div className="md:col-span-2 space-y-6">
                     {/* Metadata */}
                     <div className="flex items-center space-x-4 text-gray-300 font-inter">
-                      <span className="text-lg font-semibold text-netflix-white">{formatDuration(content.duration)}</span>
+<span className="text-lg font-semibold text-netflix-white">{formatDuration(content.duration_c)}</span>
                       <span>•</span>
-                      <span className="capitalize text-netflix-red font-semibold">{content.type}</span>
+                      <span className="capitalize text-netflix-red font-semibold">{content.type_c}</span>
                       <span>•</span>
-                      <span>Directed by {content.director}</span>
+                      <span>Directed by {content.director_c}</span>
                     </div>
 
                     {/* Synopsis */}
                     <div className="space-y-3">
                       <h3 className="text-xl font-inter font-bold text-netflix-white">Synopsis</h3>
                       <p className="text-gray-300 font-inter leading-relaxed text-lg">
-                        {content.synopsis}
+{content.synopsis_c}
                       </p>
                     </div>
 
@@ -161,7 +161,7 @@ const ContentModal = ({ content, isOpen, onClose, onPlay, onAddToList, inMyList 
                     <div className="space-y-3">
                       <h3 className="text-xl font-inter font-bold text-netflix-white">Cast</h3>
                       <div className="flex flex-wrap gap-2">
-                        {content.cast.map((actor) => (
+{(content.cast_c?.split(',') || []).map((actor) => (
                           <Badge key={actor} variant="outline" className="text-sm py-1 px-3">
                             {actor}
                           </Badge>
@@ -176,7 +176,7 @@ const ContentModal = ({ content, isOpen, onClose, onPlay, onAddToList, inMyList 
                     <div className="space-y-3">
                       <h3 className="text-lg font-inter font-bold text-netflix-white">Genres</h3>
                       <div className="flex flex-wrap gap-2">
-                        {content.genre.map((genre) => (
+{(content.genre_c?.split(',') || []).map((genre) => (
                           <Badge key={genre} variant="default" className="text-sm">
                             {genre}
                           </Badge>
@@ -188,13 +188,13 @@ const ContentModal = ({ content, isOpen, onClose, onPlay, onAddToList, inMyList 
                     <div className="space-y-4 text-sm font-inter">
                       <div className="space-y-2">
                         <span className="text-gray-400">Release Year:</span>
-                        <p className="text-netflix-white font-semibold">{content.releaseYear}</p>
+<p className="text-netflix-white font-semibold">{content.release_year_c}</p>
                       </div>
                       
                       <div className="space-y-2">
                         <span className="text-gray-400">Rating:</span>
                         <div className="flex items-center space-x-2">
-                          <span className="text-netflix-white font-semibold">{content.rating}</span>
+<span className="text-netflix-white font-semibold">{content.rating_c}</span>
                           <span className="text-yellow-500">★★★★★</span>
                         </div>
                       </div>
@@ -202,7 +202,7 @@ const ContentModal = ({ content, isOpen, onClose, onPlay, onAddToList, inMyList 
                       <div className="space-y-2">
                         <span className="text-gray-400">Maturity Rating:</span>
                         <Badge variant="secondary" className="text-xs">
-                          {content.maturityRating}
+{content.maturity_rating_c}
                         </Badge>
                       </div>
                     </div>

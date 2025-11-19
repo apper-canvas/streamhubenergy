@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import ApperIcon from '@/components/ApperIcon'
-import Button from '@/components/atoms/Button'
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import { useAuth } from "@/layouts/Root";
+import ApperIcon from "@/components/ApperIcon";
+import Button from "@/components/atoms/Button";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
-
+  const { user, isAuthenticated } = useSelector(state => state.user)
+  const { logout } = useAuth()
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100)
@@ -83,6 +86,40 @@ const Header = () => {
               ))}
             </nav>
 
+{/* User Actions Container */}
+
+          <div className="flex items-center space-x-4">
+            {/* User Actions */}
+            {isAuthenticated ? (
+              <div className="flex items-center space-x-4">
+                <span className="text-netflix-white text-sm">
+                  Welcome, {user?.firstName || user?.name || 'User'}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={logout}
+                  className="text-netflix-white hover:text-netflix-red"
+                >
+                  <ApperIcon name="LogOut" className="h-4 w-4 mr-2" />
+                  Logout
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <Link to="/login">
+                  <Button variant="ghost" size="sm" className="text-netflix-white hover:text-netflix-red">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link to="/signup">
+                  <Button size="sm" className="bg-netflix-red hover:bg-netflix-red-dark text-netflix-white">
+                    Sign Up
+                  </Button>
+                </Link>
+              </div>
+            )}
+
             {/* Mobile Menu Button */}
             <Button
               variant="ghost"
@@ -94,28 +131,28 @@ const Header = () => {
             </Button>
           </div>
         </div>
-      </motion.header>
 
-      {/* Mobile Bottom Navigation */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-netflix-bg/95 backdrop-blur-md border-t border-netflix-white/10">
-        <div className="flex items-center justify-around py-2">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              to={item.path}
-              className={`flex flex-col items-center space-y-1 py-2 px-4 rounded-lg transition-all duration-200 ${
-                isActivePath(item.path) 
-                  ? 'text-netflix-red bg-netflix-red/10' 
-                  : 'text-gray-400 hover:text-netflix-white'
-              }`}
-            >
-              <ApperIcon name={item.icon} className="h-5 w-5" />
-              <span className="text-xs font-inter font-medium">{item.name}</span>
-            </Link>
-          ))}
-        </div>
-      </div>
+{navigation.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className={`block text-netflix-white hover:text-gray-300 transition-colors ${
+                  isActivePath(item.path) ? 'font-semibold' : ''
+                }`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item.name}
+              </Link>
+            ))}
+</motion.header>
 
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
       {/* Mobile Overlay Menu */}
       {isMobileMenuOpen && (
         <motion.div

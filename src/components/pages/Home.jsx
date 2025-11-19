@@ -141,7 +141,7 @@ const Home = () => {
         content={featuredContent}
         onPlay={handlePlay}
         onAddToList={handleAddToList}
-        inMyList={featuredContent.length > 0 && myList.includes(featuredContent[0]?.Id?.toString())}
+inMyList={featuredContent.length > 0 && myList.includes(featuredContent[0]?.Id?.toString())}
       />
 
       {/* Content Rows */}
