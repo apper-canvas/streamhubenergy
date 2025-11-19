@@ -91,10 +91,20 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             {/* User Actions */}
             {isAuthenticated ? (
-              <div className="flex items-center space-x-4">
+<div className="flex items-center space-x-4">
                 <span className="text-netflix-white text-sm">
                   Welcome, {user?.firstName || user?.name || 'User'}
                 </span>
+                <button
+                  onClick={() => {
+                    const bUrl = "https://test-billing.apper.io/?token=" + localStorage.getItem("jwt_token");
+                    window.open(bUrl, "_blank");
+                  }}
+                  className="text-netflix-white hover:text-netflix-red transition-colors duration-200 flex items-center space-x-1 text-sm font-medium"
+                >
+                  <ApperIcon name="CreditCard" className="h-4 w-4" />
+                  <span>Billing</span>
+                </button>
                 <Button
                   variant="ghost"
                   size="sm"
