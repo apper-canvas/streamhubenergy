@@ -1,0 +1,68 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import 'react-toastify/dist/ReactToastify.css';
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .font-bebas {
+    font-family: 'Bebas Neue', cursive;
+  }
+  
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Custom scrollbar for content rows */
+  .content-row::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .content-row {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  /* Smooth scrolling */
+  .content-row {
+    scroll-behavior: smooth;
+  }
+  
+  /* Video player custom controls */
+  .video-controls {
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  }
+  
+  /* Progress bar */
+  .progress-bar {
+    background: linear-gradient(90deg, #E50914 0%, #E50914 var(--progress), rgba(255, 255, 255, 0.3) var(--progress));
+  }
+}
+
+/* Toast container styling */
+.Toastify__toast-container {
+  z-index: 9999;
+}
+
+.Toastify__toast {
+  background: #1A1A1A;
+  color: #F5F5F1;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  font-family: 'Inter', sans-serif;
+}
+
+.Toastify__toast--success {
+  background: linear-gradient(135deg, #1A1A1A, #46D369);
+}
+
+.Toastify__toast--error {
+  background: linear-gradient(135deg, #1A1A1A, #E50914);
+}
+
+.Toastify__progress-bar {
+  background: #E50914;
+}
