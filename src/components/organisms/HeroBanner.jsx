@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import ApperIcon from '@/components/ApperIcon'
-import Button from '@/components/atoms/Button'
-import Badge from '@/components/atoms/Badge'
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import ApperIcon from "@/components/ApperIcon";
+import Button from "@/components/atoms/Button";
+import Badge from "@/components/atoms/Badge";
 
 const HeroBanner = ({ content, onPlay, onAddToList, inMyList = false }) => {
   const [imageLoaded, setImageLoaded] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  if (!content) return null
-
-  const currentContent = Array.isArray(content) ? content[currentIndex] : content
-
-  useEffect(() => {
+useEffect(() => {
     if (Array.isArray(content) && content.length > 1) {
       const timer = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % content.length)
@@ -20,6 +16,11 @@ const HeroBanner = ({ content, onPlay, onAddToList, inMyList = false }) => {
       return () => clearInterval(timer)
     }
   }, [content])
+
+  // Early return after all hooks are called
+  if (!content) return null
+
+const currentContent = Array.isArray(content) ? content[currentIndex] : content
 
   const handlePlay = () => {
     onPlay?.(currentContent)
